@@ -9,6 +9,7 @@ function App() {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>자, 미니게임을 시작해봅시다!!</p>
+          <p>네 좋습니다!</p>
           <a
             className="App-link"
             href="http://www.vistavielab.com"
