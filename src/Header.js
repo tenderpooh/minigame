@@ -1,9 +1,13 @@
 import React from "react";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { Alert } from "reactstrap";
 import "./App.css";
 
-function Header() {
-  return <>헤더헤더헤더</>;
-}
+const Header = ({ props }) => {
+  return (
+    <>
+      <Alert color="primary">This is a primary alert — check it out!</Alert>
+    </>
+  );
+};
 
 export default Header;
