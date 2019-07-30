@@ -1,6 +1,5 @@
 import React from "react";
 import Header from "./Header";
-import Leaderboard from "./Leaderboard";
 import logo from "./logo.svg";
 import Counter from "./Counter";
 import Navbar from "./Navbar";
@@ -10,8 +9,6 @@ function App() {
   return (
     <>
       <Header />
-      <Leaderboard />
-      =======
       <Navbar />
       <div className="App">
         <header className="App-header">
