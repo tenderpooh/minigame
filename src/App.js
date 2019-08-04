@@ -1,6 +1,7 @@
 import React from "react";
 import Login from "./Login/Login.jsx";
 import User from "./User/User.jsx";
+import Dealer from "./Dealer.jsx";
 import "./App.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
@@ -11,6 +12,7 @@ const App = () => {
       <Route path="/user" component={User} />
       <Route path="/admin" component={Admin} />
       <Route path="/timer" component={Timer} />
+      <Route path="/dealer" component={Dealer} />
     </Router>
   );
 };
