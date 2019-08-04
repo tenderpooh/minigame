@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Input, Button, Container, Row } from "reactstrap";
+import InputNumber from "react-input-just-numbers";
 
 const Dealer = () => {
   const [Code, setCode] = useState("");
@@ -24,7 +25,7 @@ const Dealer = () => {
           style={{ width: "80%" }}
         />
         <div>사용자 이름 : {playerName}</div>
-        <Input
+        <InputNumber
           id="scoreInput"
           onChange={e => setScore(e.target.value)}
           value={Score}
