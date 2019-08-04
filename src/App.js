@@ -1,28 +1,25 @@
 import React from "react";
-import Header from "./Header";
-import logo from "./logo.svg";
-import Counter from "./Counter";
-import Navbar from "./Navbar";
+import Login from "./Login/Login.jsx";
+import User from "./User/User.jsx";
 import "./App.css";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
-function App() {
+const App = () => {
   return (
-    <>
-      <Header />
-      <Navbar />
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>자, 미니게임을 시작해봅시다!!</p>
-          <Counter />
-          <Counter />
-          <Counter />
-          <Counter />
-          {alert}
-        </header>
-      </div>
-    </>
+    <Router>
+      <Route exact path="/" component={Login} />
+      <Route path="/user" component={User} />
+      <Route path="/admin" component={Admin} />
+      <Route path="/timer" component={Timer} />
+    </Router>
   );
-}
+};
 
+const Admin = () => {
+  return <h1>Admin</h1>;
+};
+
+const Timer = () => {
+  return <h1>Timer</h1>;
+};
 export default App;
