@@ -31,7 +31,7 @@ export default class Example extends React.Component {
           <NavbarBrand href="/" className="mr-auto">
             미니게임천국
           </NavbarBrand>
-          <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
+          <NavbarToggler onClick={this.toggleNavbar} className="my-2 my-sm-0" />
           <Collapse isOpen={!this.state.collapsed} navbar>
             <Nav navbar>
               <NavItem>
