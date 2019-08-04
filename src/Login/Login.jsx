@@ -29,7 +29,7 @@ const Login = () => {
           type="password"
         />
         <Button
-          href="/user"
+          href={"/user/" + ID}
           color="info"
           size="lg"
           block
