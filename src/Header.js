@@ -34,7 +34,7 @@ const Header = () => {
       <div>
         <Navbar color="faded" light>
           <NavbarBrand href="/" className="mr-auto">
-            미니게임천국 with 청년참 반상회
+            미니게임천국
           </NavbarBrand>
           <NavbarToggler
             onClick={() => toggleNavbar(!collapsed)}
