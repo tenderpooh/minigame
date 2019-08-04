@@ -65,15 +65,7 @@ const Header = () => {
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/admin/">Admin</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/user/">User</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">
-                  GitHub
-                </NavLink>
+                <NavLink href="/">로그아웃</NavLink>
               </NavItem>
             </Nav>
           </Collapse>
