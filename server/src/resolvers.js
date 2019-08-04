@@ -1,9 +1,9 @@
 const resolvers = {
   Query: {
-    user: (root, args, context) => {
+    User: (root, args, context) => {
       return context.prisma.user({ barcode: args.barcode });
     },
-    users: (root, args, context) => {
+    Users: (root, args, context) => {
       return context.prisma.users();
     }
   },
