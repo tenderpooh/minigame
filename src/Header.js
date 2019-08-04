@@ -32,13 +32,11 @@ const Header = () => {
   return (
     <>
       <div>
-        <Navbar color="faded" light>
-          <NavbarBrand href="/" className="mr-auto">
-            미니게임천국 with 청년참 반상회
-          </NavbarBrand>
+        <Navbar className="w-100 p-1" color="faded" light>
+          <NavbarBrand href="/">미니게임천국</NavbarBrand>
           <NavbarToggler
             onClick={() => toggleNavbar(!collapsed)}
-            className="mr-2"
+            className="align-right"
           />
           <Collapse isOpen={!collapsed} navbar>
             <Nav navbar>
@@ -64,17 +62,6 @@ const Header = () => {
                   리더보드
                 </NavLink>
               </NavItem>
-              <NavItem>
-                <NavLink href="/admin/">Admin</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/user/">User</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">
-                  GitHub
-                </NavLink>
-              </NavItem>
             </Nav>
           </Collapse>
         </Navbar>
@@ -87,10 +74,7 @@ const Header = () => {
           <ModalBody>{modalContent}</ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={() => toggleModal(!modal)}>
-              Do Something
-            </Button>{" "}
-            <Button color="secondary" onClick={() => toggleModal(!modal)}>
-              Cancel
+              확인
             </Button>
           </ModalFooter>
         </Modal>
