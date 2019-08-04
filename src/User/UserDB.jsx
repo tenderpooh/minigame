@@ -16,3 +16,5 @@ export const array = [
     score: 200
   }
 ];
+
+export default array;

@@ -1,17 +1,30 @@
 import React, { useState } from "react";
 import { Input, Button, Container, Row } from "reactstrap";
+import array from "./User/UserDB";
 import InputNumber from "react-input-just-numbers";
 
 const Dealer = () => {
-  const [Code, setCode] = useState("");
+  const [playerID, setID] = useState("");
   const [Score, setScore] = useState("");
-  let playerName = "";
-  if (Code === "1111") {
-    playerName = "김소년";
-  } else {
-    playerName = "빠울루";
+  const playerName = findname();
+  const playerComm = findcomm();
+
+  function findname() {
+    for (var i = 0; i < array.length; i++) {
+      if (array[i].ID === playerID) {
+        return array[i].name;
+      }
+    }
   }
-  if (Code.length === 4) {
+  function findcomm() {
+    for (var i = 0; i < array.length; i++) {
+      if (array[i].ID === playerID) {
+        return array[i].comm;
+      }
+    }
+  }
+
+  if (playerID.length === 4) {
     let scoreInput = document.getElementById("scoreInput");
     scoreInput.focus();
   }
@@ -19,12 +32,13 @@ const Dealer = () => {
     <Container>
       <div className="d-flex flex-column align-items-center justify-content-center vh-100">
         <Input
-          onChange={e => setCode(e.target.value)}
-          value={Code}
-          placeholder="유저코드"
+          onChange={e => setID(e.target.value)}
+          value={playerID}
+          placeholder="유저ID"
           style={{ width: "80%" }}
         />
-        <div>사용자 이름 : {playerName}</div>
+        <div>이름 : {playerName}</div>
+        <div>커뮤니티 : {playerComm}</div>
         <InputNumber
           id="scoreInput"
           onChange={e => setScore(e.target.value)}
