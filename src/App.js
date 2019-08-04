@@ -9,7 +9,7 @@ const App = () => {
   return (
     <Router>
       <Route exact path="/" component={Login} />
-      <Route path="/user" component={User} />
+      <Route path="/user/:userId" component={User} />
       <Route path="/admin" component={Admin} />
       <Route path="/timer" component={Timer} />
       <Route path="/dealer" component={Dealer} />
