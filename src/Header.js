@@ -14,10 +14,21 @@ import {
   Button
 } from "reactstrap";
 import "./App.css";
+import Leaderboard from "./User/Leaderboard";
+import UserInfo from "./User/UserInfo";
 
 const Header = () => {
   const [collapsed, toggleNavbar] = useState(true);
   const [modal, toggleModal] = useState(false);
+  const [modalTitle, setModalTitle] = useState("");
+  let modalContent = "";
+  switch (modalTitle) {
+    case "리더보드":
+      modalContent = <Leaderboard />;
+      break;
+    case "내 정보":
+      modalContent = <UserInfo />;
+  }
   return (
     <>
       <div>
@@ -32,7 +43,26 @@ const Header = () => {
           <Collapse isOpen={!collapsed} navbar>
             <Nav navbar>
               <NavItem>
-                <NavLink onClick={toggleModal}>내 정보</NavLink>
+                <NavLink
+                  onClick={e => {
+                    toggleModal(true);
+                    setModalTitle(e.target.name);
+                  }}
+                  name="내 정보"
+                >
+                  내 정보
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  onClick={e => {
+                    toggleModal(true);
+                    setModalTitle(e.target.name);
+                  }}
+                  name="리더보드"
+                >
+                  리더보드
+                </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink href="/admin/">Admin</NavLink>
@@ -51,11 +81,10 @@ const Header = () => {
       </div>
       <div>
         <Modal isOpen={modal} toggle={() => toggleModal(!modal)}>
-          <ModalHeader toggle={() => toggleModal(!modal)}>내 정보</ModalHeader>
-          <ModalBody>
-            <div>Name : Paulo</div>
-            <div>커뮤니티 : 비따비</div>
-          </ModalBody>
+          <ModalHeader toggle={() => toggleModal(!modal)}>
+            {modalTitle}
+          </ModalHeader>
+          <ModalBody>{modalContent}</ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={() => toggleModal(!modal)}>
               Do Something
