@@ -1,0 +1,17 @@
+type Query {
+  User(barcode: Int!): User!
+  Users(): [User!]
+}
+
+type Mutation {
+  createUser(barcode: Int!, pw: String! comm: String!, name: String!): User
+}
+
+type User {
+  id: ID!
+  barcode: Int!
+  pw: String!
+  comm: String!
+  name: String!
+  score: Int!
+}

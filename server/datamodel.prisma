@@ -1,0 +1,8 @@
+type User {
+  id: ID! @id
+  barcode: Int! @unique
+  pw: String!
+  comm: String!
+  name: String!
+  score: Int!
+}
