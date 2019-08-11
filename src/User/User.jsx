@@ -3,18 +3,11 @@ import Header from "../Header";
 import array from "./UserDB";
 import Leaderboard from "./Leaderboard";
 import { Container } from "reactstrap";
+import { findname } from "./Function";
 const User = ({ match, location }) => {
   const playerID = Number(location.pathname.split("/")[2]);
-  const playerName = findname();
+  const playerName = findname(array, playerID);
   const playerScore = findscore();
-
-  function findname() {
-    for (var i = 0; i < array.length; i++) {
-      if (array[i].ID === playerID) {
-        return array[i].name;
-      }
-    }
-  }
   function findscore() {
     for (var i = 0; i < array.length; i++) {
       if (array[i].ID === playerID) {
