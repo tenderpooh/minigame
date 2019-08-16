@@ -1,30 +1,32 @@
-import React, { useState } from "react";
+import React from "react";
 import Header from "../Header";
-import array from "./UserDB";
-import Leaderboard from "./Leaderboard";
 import { Container } from "reactstrap";
-import { findname } from "./Function";
+import { useQuery } from "@apollo/react-hooks";
+import gql from "graphql-tag";
 const User = ({ match, location }) => {
   const playerID = Number(location.pathname.split("/")[2]);
-  const playerName = findname(array, playerID);
-  const playerScore = findscore();
-  function findscore() {
-    for (var i = 0; i < array.length; i++) {
-      if (array[i].ID === playerID) {
-        return array[i].score;
+  const GET_USERINFO = gql`
+    query MyInfo {
+      MyInfo {
+        comm
+        name
+        score
       }
     }
-  }
-
+  `;
+  const { data, loading, error } = useQuery(GET_USERINFO, {
+    variables: { barcode: playerID }
+  });
+  if (loading) return <p>LOADING</p>;
+  if (error) return <p>ERROR</p>;
   return (
     <Container>
       <Header />
       <div className="d-flex flex-column justify-content-center align-items-center vh-100">
         <h1>00:00</h1>
-        <h4>내 아이디는 {playerID}</h4>
-        <h4>내 이름은 {playerName}</h4>
-        <h4>현재 나의 점수는 {playerScore}점</h4>
-        <Leaderboard />;
+        <h4>내 커뮤니티는 {data.MyInfo.comm}</h4>
+        <h4>내 이름은 {data.MyInfo.name}</h4>
+        <h4>현재 나의 점수는 {data.MyInfo.score}점</h4>
       </div>
     </Container>
   );

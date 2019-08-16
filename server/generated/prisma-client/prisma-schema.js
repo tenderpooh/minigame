@@ -3,7 +3,11 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregateUser {
+/* GraphQL */ `type AggregateState {
+  count: Int!
+}
+
+type AggregateUser {
   count: Int!
 }
 
@@ -14,6 +18,12 @@ type BatchPayload {
 scalar Long
 
 type Mutation {
+  createState(data: StateCreateInput!): State!
+  updateState(data: StateUpdateInput!, where: StateWhereUniqueInput!): State
+  updateManyStates(data: StateUpdateManyMutationInput!, where: StateWhereInput): BatchPayload!
+  upsertState(where: StateWhereUniqueInput!, create: StateCreateInput!, update: StateUpdateInput!): State!
+  deleteState(where: StateWhereUniqueInput!): State
+  deleteManyStates(where: StateWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -40,13 +50,108 @@ type PageInfo {
 }
 
 type Query {
+  state(where: StateWhereUniqueInput!): State
+  states(where: StateWhereInput, orderBy: StateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [State]!
+  statesConnection(where: StateWhereInput, orderBy: StateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): StateConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   node(id: ID!): Node
 }
 
+type State {
+  id: ID!
+  time: Int!
+}
+
+type StateConnection {
+  pageInfo: PageInfo!
+  edges: [StateEdge]!
+  aggregate: AggregateState!
+}
+
+input StateCreateInput {
+  id: ID
+  time: Int!
+}
+
+type StateEdge {
+  node: State!
+  cursor: String!
+}
+
+enum StateOrderByInput {
+  id_ASC
+  id_DESC
+  time_ASC
+  time_DESC
+}
+
+type StatePreviousValues {
+  id: ID!
+  time: Int!
+}
+
+type StateSubscriptionPayload {
+  mutation: MutationType!
+  node: State
+  updatedFields: [String!]
+  previousValues: StatePreviousValues
+}
+
+input StateSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: StateWhereInput
+  AND: [StateSubscriptionWhereInput!]
+  OR: [StateSubscriptionWhereInput!]
+  NOT: [StateSubscriptionWhereInput!]
+}
+
+input StateUpdateInput {
+  time: Int
+}
+
+input StateUpdateManyMutationInput {
+  time: Int
+}
+
+input StateWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  time: Int
+  time_not: Int
+  time_in: [Int!]
+  time_not_in: [Int!]
+  time_lt: Int
+  time_lte: Int
+  time_gt: Int
+  time_gte: Int
+  AND: [StateWhereInput!]
+  OR: [StateWhereInput!]
+  NOT: [StateWhereInput!]
+}
+
+input StateWhereUniqueInput {
+  id: ID
+}
+
 type Subscription {
+  state(where: StateSubscriptionWhereInput): StateSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
@@ -218,6 +323,7 @@ input UserWhereInput {
 input UserWhereUniqueInput {
   id: ID
   barcode: Int
+  name: String
 }
 `
       }

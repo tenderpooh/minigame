@@ -65,7 +65,14 @@ const Header = () => {
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/">로그아웃</NavLink>
+                <NavLink
+                  onClick={() => {
+                    localStorage.removeItem("token");
+                    window.location.href = "/";
+                  }}
+                >
+                  로그아웃
+                </NavLink>
               </NavItem>
             </Nav>
           </Collapse>
@@ -78,11 +85,8 @@ const Header = () => {
           </ModalHeader>
           <ModalBody>{modalContent}</ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={() => toggleModal(!modal)}>
-              Do Something
-            </Button>{" "}
             <Button color="secondary" onClick={() => toggleModal(!modal)}>
-              Cancel
+              닫기
             </Button>
           </ModalFooter>
         </Modal>

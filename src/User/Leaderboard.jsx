@@ -1,8 +1,25 @@
 import React, { useState } from "react";
+import { useQuery } from "@apollo/react-hooks";
+import gql from "graphql-tag";
 
 const Leaderboard = () => {
+  const GET_RANK = gql`
+    query Users {
+      Users {
+        id
+        comm
+        name
+        score
+      }
+    }
+  `;
+  const { data, loading, error } = useQuery(GET_RANK);
+  console.log(data.Users);
+  const userList = data.Users;
+  if (loading) return <p>LOADING</p>;
+  if (error) return <p>ERROR</p>;
   return (
-    <table class="table">
+    <table className="table">
       <thead>
         <tr>
           <th scope="col">등수</th>
@@ -12,24 +29,16 @@ const Leaderboard = () => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>비따비</td>
-          <td>김소년</td>
-          <td>200</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>청년허브</td>
-          <td>빠울루</td>
-          <td>180</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>NBA</td>
-          <td>마이클 조던</td>
-          <td>179</td>
-        </tr>
+        {userList.map((data, index) => {
+          return (
+            <tr key={data.id}>
+              <td scope="row">{index + 1}</td>
+              <td>{data.comm}</td>
+              <td>{data.name}</td>
+              <td>{data.score}</td>
+            </tr>
+          );
+        })}
         <tr>
           <th colSpan="4">...</th>
         </tr>

@@ -1,53 +1,109 @@
 import React, { useState } from "react";
-import { Input, Button, Container, Row } from "reactstrap";
-import array from "./User/UserDB";
+import { Input, Button, Container } from "reactstrap";
+import { gql } from "apollo-boost";
 import InputNumber from "react-input-just-numbers";
+import { useApolloClient, useMutation } from "@apollo/react-hooks";
 
 const Dealer = () => {
-  const [playerID, setID] = useState("");
-  const [Score, setScore] = useState("");
-  const playerName = findname();
-  const playerComm = findcomm();
-
-  function findname() {
-    for (var i = 0; i < array.length; i++) {
-      if (array[i].ID === playerID) {
-        return array[i].name;
+  const [barcode, setBarcode] = useState("");
+  const [score, setScore] = useState("");
+  const [comm, setComm] = useState("");
+  const [name, setName] = useState("");
+  const [oldScore, setOldScore] = useState("");
+  const client = useApolloClient();
+  const GET_USERINFO = gql`
+    query User($barcode: Int!) {
+      User(barcode: $barcode) {
+        comm
+        name
+        score
       }
     }
-  }
-  function findcomm() {
-    for (var i = 0; i < array.length; i++) {
-      if (array[i].ID === playerID) {
-        return array[i].comm;
+  `;
+  const fetchData = async () => {
+    const { data } = await client.query({
+      query: GET_USERINFO,
+      variables: { barcode: Number(barcode) }
+    });
+    if (data.User !== null) {
+      setComm(data.User.comm);
+      setName(data.User.name);
+      setOldScore(data.User.score);
+    } else {
+      setComm("");
+      setName("없는 유저");
+      setOldScore("");
+    }
+  };
+  const GET_SCORE = gql`
+    mutation GET_SCORE($barcode: Int!, $score: Int!) {
+      getScore(barcode: $barcode, score: $score) {
+        name
+        comm
+        score
       }
     }
-  }
+  `;
+  const [getScore] = useMutation(GET_SCORE, {
+    onCompleted() {
+      setBarcode("");
+      setScore("");
+      let barcodeInput = document.getElementById("barcodeInput");
+      barcodeInput.focus();
+    },
+    variables: {
+      barcode: Number(barcode),
+      score: Number(score)
+    },
+    refetchQueries: [
+      { query: GET_USERINFO, variables: { barcode: Number(barcode) } }
+    ],
+    awaitRefetchQueries: true
+  });
 
-  if (playerID.length === 4) {
+  if (barcode.length === 4) {
     let scoreInput = document.getElementById("scoreInput");
     scoreInput.focus();
+    fetchData();
   }
   return (
     <Container>
       <div className="d-flex flex-column align-items-center justify-content-center vh-100">
         <Input
-          onChange={e => setID(e.target.value)}
-          value={playerID}
-          placeholder="유저ID"
+          id="barcodeInput"
+          onChange={e => setBarcode(e.target.value)}
+          value={barcode}
+          placeholder="유저 코드"
           style={{ width: "80%" }}
         />
-        <div>이름 : {playerName}</div>
-        <div>커뮤니티 : {playerComm}</div>
-        <InputNumber
+        <table className="table" style={{ width: "80%" }}>
+          <thead>
+            <tr>
+              <td>커뮤니티</td>
+              <td>{comm}</td>
+            </tr>
+            <tr>
+              <td>이름</td>
+              <td>{name}</td>
+            </tr>
+            <tr>
+              <td>점수</td>
+              <td>{oldScore}</td>
+            </tr>
+          </thead>
+        </table>
+        <Input
           id="scoreInput"
           onChange={e => setScore(e.target.value)}
-          value={Score}
+          value={score}
           placeholder="점수"
           style={{ width: "80%" }}
         />
         <Button
-          href="/user"
+          onClick={e => {
+            e.preventDefault();
+            getScore();
+          }}
           color="info"
           size="lg"
           block

@@ -3,6 +3,11 @@ type User {
   barcode: Int! @unique
   pw: String!
   comm: String!
-  name: String!
+  name: String! @unique
   score: Int!
+}
+
+type State{
+  id: ID! @id
+  time: Int!
 }

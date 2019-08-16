@@ -5,8 +5,11 @@ const resolvers = require("./src/resolvers.js");
 const server = new GraphQLServer({
   typeDefs: "./src/schema.graphql",
   resolvers,
-  context: {
-    prisma
+  context: request => {
+    return {
+      ...request,
+      prisma
+    };
   }
 });
 server.start({ port: 4040 }, () =>
