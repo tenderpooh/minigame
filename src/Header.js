@@ -15,7 +15,7 @@ import {
 } from "reactstrap";
 import "./App.css";
 import Leaderboard from "./User/Leaderboard";
-import UserInfo from "./User/UserInfo";
+import Credit from "./User/Credit";
 
 const Header = () => {
   const [collapsed, toggleNavbar] = useState(true);
@@ -26,8 +26,11 @@ const Header = () => {
     case "리더보드":
       modalContent = <Leaderboard />;
       break;
-    case "내 정보":
-      modalContent = <UserInfo />;
+    case "만든 사람들":
+      modalContent = <Credit />;
+      break;
+    default:
+      modalContent = <Credit />;
   }
   return (
     <>
@@ -48,9 +51,9 @@ const Header = () => {
                     toggleModal(true);
                     setModalTitle(e.target.name);
                   }}
-                  name="내 정보"
+                  name="리더보드"
                 >
-                  내 정보
+                  리더보드
                 </NavLink>
               </NavItem>
               <NavItem>
@@ -59,9 +62,9 @@ const Header = () => {
                     toggleModal(true);
                     setModalTitle(e.target.name);
                   }}
-                  name="리더보드"
+                  name="만든 사람들"
                 >
-                  리더보드
+                  만든 사람들
                 </NavLink>
               </NavItem>
               <NavItem>

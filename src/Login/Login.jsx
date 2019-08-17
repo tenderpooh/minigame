@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Input, Button, Container, Row } from "reactstrap";
+import { Input, Button, Container } from "reactstrap";
 import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
+import logo from "./logo.jpeg";
 
 const LOGIN = gql`
   mutation LOGIN($name: String!, $pw: String!) {
@@ -19,7 +20,7 @@ const Login = () => {
   const [PW, setPW] = useState("");
   const [
     login,
-    { loading: mutationLoading, error: mutationError, data }
+    { loading: mutationLoading, error: mutationError }
   ] = useMutation(LOGIN, {
     onCompleted({ login }) {
       localStorage.setItem("token", login.token);
@@ -29,24 +30,27 @@ const Login = () => {
   return (
     <Container>
       <div className="d-flex flex-column align-items-center justify-content-center vh-100">
-        <Row
-          className="text-center border border-info align-items-center justify-content-center h-50"
+        <img
+          src={logo}
+          class="img-fluid"
+          alt="미니게임천국"
+          className="text-center align-items-center justify-content-center"
           style={{
-            width: "80%"
+            width: "100%"
           }}
-        >
-          <p>로고</p>
-        </Row>
+        />
         <Input
+          className="mb-1"
           onChange={e => setID(e.target.value)}
           value={ID}
-          placeholder="username"
+          placeholder="닉네임"
           style={{ width: "80%" }}
         />
         <Input
+          className="mb-1"
           onChange={e => setPW(e.target.value)}
           value={PW}
-          placeholder="password"
+          placeholder="비밀번호"
           style={{ width: "80%" }}
           type="password"
         />

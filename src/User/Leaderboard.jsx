@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 
@@ -11,13 +11,27 @@ const Leaderboard = () => {
         name
         score
       }
+      AllUsers {
+        barcode
+      }
+      MyInfo {
+        barcode
+        name
+        comm
+        score
+      }
     }
   `;
   const { data, loading, error } = useQuery(GET_RANK);
-  console.log(data.Users);
-  const userList = data.Users;
+
   if (loading) return <p>LOADING</p>;
   if (error) return <p>ERROR</p>;
+  const userList = data.Users;
+  const allUserList = data.AllUsers;
+  const MyInfo = data.MyInfo;
+  let myRank = allUserList.findIndex(element => {
+    return Number(element.barcode) === Number(data.MyInfo.barcode);
+  });
   return (
     <table className="table">
       <thead>
@@ -32,23 +46,49 @@ const Leaderboard = () => {
         {userList.map((data, index) => {
           return (
             <tr key={data.id}>
-              <td scope="row">{index + 1}</td>
-              <td>{data.comm}</td>
-              <td>{data.name}</td>
-              <td>{data.score}</td>
+              <td
+                className={MyInfo.name === data.name ? "font-weight-bold" : ""}
+              >
+                {index + 1}
+              </td>
+              <td
+                className={MyInfo.name === data.name ? "font-weight-bold" : ""}
+              >
+                {data.comm}
+              </td>
+              <td
+                className={MyInfo.name === data.name ? "font-weight-bold" : ""}
+              >
+                {data.name}
+              </td>
+              <td
+                className={MyInfo.name === data.name ? "font-weight-bold" : ""}
+              >
+                {data.score}
+              </td>
             </tr>
           );
         })}
-        <tr>
-          <th colSpan="4">...</th>
-        </tr>
-        <tr>
-          <th scope="row">170</th>
-          <td>우리팀</td>
-          <td>나</td>
-          <td>79</td>
-        </tr>
       </tbody>
+      {myRank < 3 ? (
+        ""
+      ) : (
+        <tfoot>
+          <tr>
+            <th colSpan="4" style={{ textAlign: "center" }}>
+              ...
+            </th>
+          </tr>
+          <tr>
+            <th className="font-weight-bold" scope="row">
+              {myRank + 1}
+            </th>
+            <td className="font-weight-bold">{data.MyInfo.comm}</td>
+            <td className="font-weight-bold">나</td>
+            <td className="font-weight-bold">{data.MyInfo.score}</td>
+          </tr>
+        </tfoot>
+      )}
     </table>
   );
 };

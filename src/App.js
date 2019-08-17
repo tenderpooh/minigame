@@ -2,6 +2,7 @@ import React from "react";
 import Login from "./Login/Login.jsx";
 import User from "./User/User.jsx";
 import Dealer from "./Dealer.jsx";
+import Admin from "./Admin.jsx";
 import "./App.css";
 import ApolloClient from "apollo-client";
 import { ApolloProvider } from "@apollo/react-hooks";
@@ -9,6 +10,9 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { createHttpLink } from "apollo-link-http";
 import { setContext } from "apollo-link-context";
 import { InMemoryCache } from "apollo-cache-inmemory";
+import { split } from "apollo-link";
+import { WebSocketLink } from "apollo-link-ws";
+import { getMainDefinition } from "apollo-utilities";
 
 const httpLink = createHttpLink({
   uri: "http://localhost:4040/"
@@ -26,8 +30,30 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
+const wsLink = new WebSocketLink({
+  uri: `ws://localhost:4040/`,
+  options: {
+    reconnect: true
+  }
+});
+
+// using the ability to split links, you can send data to each link
+// depending on what kind of operation is being sent
+const link = split(
+  // split based on operation type
+  ({ query }) => {
+    const definition = getMainDefinition(query);
+    return (
+      definition.kind === "OperationDefinition" &&
+      definition.operation === "subscription"
+    );
+  },
+  wsLink,
+  httpLink
+);
+
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: authLink.concat(link),
   cache: new InMemoryCache(),
   uri: "http://localhost:4040/"
 });
@@ -54,10 +80,6 @@ const App = () => {
       </ApolloProvider>
     );
   }
-};
-
-const Admin = () => {
-  return <h1>Admin</h1>;
 };
 
 const Timer = () => {

@@ -6,6 +6,7 @@
     "@apollo/react-hooks": "^3.0.1",
     "apollo-boost": "^0.4.4",
     "apollo-link-context": "^1.0.18",
+    "apollo-link-ws": "^1.0.18",
     "bootstrap": "^4.3.1",
     "graphql": "^14.4.2",
     "react": "^16.8.6",
@@ -16,7 +17,8 @@
     "react-native-leaderboard": "^1.0.5",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
-    "reactstrap": "^8.0.1"
+    "reactstrap": "^8.0.1",
+    "subscriptions-transport-ws": "^0.9.16"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -2,12 +2,21 @@ type Query {
   User(barcode: Int!): User
   MyInfo: User
   Users: [User]
+  AllUsers: [User]
+  State: State
 }
 
 type Mutation {
   createUser(barcode: Int!, pw: String!, comm: String!, name: String!): User
   getScore(barcode: Int!, score: Int!): User
   login(name: String!, pw: String!): AuthPayload
+  setTime(time: Int!): State
+  startTime: State
+  addTime(time: Int!): State
+}
+
+type Subscription {
+  state: State!
 }
 
 type User {
@@ -17,6 +26,11 @@ type User {
   comm: String!
   name: String!
   score: Int!
+}
+
+type State {
+  id: ID!
+  time: Int!
 }
 
 type AuthPayload {

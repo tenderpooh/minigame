@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const { APP_SECRET, getUserName } = require("./utils");
+var timer = null;
 
 const resolvers = {
   Query: {
@@ -12,6 +13,12 @@ const resolvers = {
     },
     Users: (root, args, context) => {
       return context.prisma.users({ orderBy: "score_DESC", first: 3 });
+    },
+    AllUsers: (root, args, context) => {
+      return context.prisma.users({ orderBy: "score_DESC" });
+    },
+    State: (root, args, context) => {
+      return context.prisma.state({ id: "5d575d7e857aba0007fa5fc2" });
     }
   },
   Mutation: {
@@ -51,6 +58,64 @@ const resolvers = {
         token,
         user: userInfo
       };
+    },
+    setTime: async (root, args, context) => {
+      return context.prisma.updateState({
+        data: {
+          time: args.time
+        },
+        where: { id: "5d575d7e857aba0007fa5fc2" }
+      });
+    },
+    addTime: async (root, args, context) => {
+      const currentState = await context.prisma.state({
+        id: "5d575d7e857aba0007fa5fc2"
+      });
+      return context.prisma.updateState({
+        data: {
+          time: currentState.time + args.time
+        },
+        where: { id: "5d575d7e857aba0007fa5fc2" }
+      });
+    },
+    startTime: async (root, args, context) => {
+      if (timer === null) {
+        timer = await setInterval(async () => {
+          let state = await context.prisma.state({
+            id: "5d575d7e857aba0007fa5fc2"
+          });
+          console.log(state.time);
+          if (state.time > 0) {
+            await context.prisma.updateState({
+              where: {
+                id: "5d575d7e857aba0007fa5fc2"
+              },
+              data: {
+                time: state.time - 1
+              }
+            });
+          } else if (state.time === 0) {
+            clearInterval(timer);
+            timer = null;
+          }
+        }, 1000);
+      } else {
+        clearInterval(timer);
+        timer = null;
+        console.log("it's on");
+      }
+    }
+  },
+  Subscription: {
+    state: {
+      subscribe: (parent, args, context, info) => {
+        return context.prisma.$subscribe
+          .state({ mutation_in: ["UPDATED"] })
+          .node();
+      },
+      resolve: payload => {
+        return payload;
+      }
     }
   }
 };

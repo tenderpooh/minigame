@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Input, Button, Container } from "reactstrap";
 import { gql } from "apollo-boost";
-import InputNumber from "react-input-just-numbers";
 import { useApolloClient, useMutation } from "@apollo/react-hooks";
 
 const Dealer = () => {
