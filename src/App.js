@@ -64,8 +64,8 @@ const App = () => {
     return (
       <ApolloProvider client={client}>
         <Router>
-          <Route path="/" component={User} />
-          <Route path="/user/" component={User} />
+          <Route exact path="/" component={User} />
+          <Route exact path="/user/" component={User} />
         </Router>
       </ApolloProvider>
     );
@@ -74,11 +74,11 @@ const App = () => {
       <ApolloProvider client={client}>
         <Router>
           <Route exact path="/" component={Login} />
-          <Route path="/admin" component={Admin} />
-          <Route path="/timer" component={Timer} />
-          <Route path="/dealer" component={Dealer} />
-          <Route path="/signup" component={Signup} />
-          <Route path="/user" component={Login} />
+          <Route exact path="/admin" component={Admin} />
+          <Route exact path="/timer" component={Timer} />
+          <Route exact path="/dealer" component={Dealer} />
+          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/user" component={Login} />
         </Router>
       </ApolloProvider>
     );
