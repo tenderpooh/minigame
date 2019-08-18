@@ -16,7 +16,7 @@ import { WebSocketLink } from "apollo-link-ws";
 import { getMainDefinition } from "apollo-utilities";
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:4040/"
+  uri: "http://54.180.175.127:4040/"
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -32,7 +32,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:4040/`,
+  uri: `ws://54.180.175.127:4040/`,
   options: {
     reconnect: true
   }
@@ -56,7 +56,7 @@ const link = split(
 const client = new ApolloClient({
   link: authLink.concat(link),
   cache: new InMemoryCache(),
-  uri: "http://localhost:4040/"
+  uri: "http://54.180.175.127:4040/"
 });
 
 const App = () => {
