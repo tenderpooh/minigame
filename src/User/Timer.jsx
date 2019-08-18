@@ -25,7 +25,7 @@ const sec = time => {
 
 const Timer = () => {
   //const { data, loading, error } = useQuery(GET_TIME);
-  const { data, loading, error } = useQuery(GET_TIME, {
+  const { data, loading } = useQuery(GET_TIME, {
     pollInterval: 500
   });
   console.log(data);

@@ -29,9 +29,12 @@ const Dealer = () => {
       setName(data.User.name);
       setOldScore(data.User.score);
     } else {
+      setBarcode("");
       setComm("");
       setName("없는 유저");
       setOldScore("");
+      let barcodeInput = document.getElementById("barcodeInput");
+      barcodeInput.focus();
     }
   };
   const GET_SCORE = gql`

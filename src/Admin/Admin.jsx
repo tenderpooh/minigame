@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Input, Button, ButtonGroup, Container } from "reactstrap";
-import Timer from "./User/Timer.jsx";
+import Timer from "../User/Timer.jsx";
 import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
 
