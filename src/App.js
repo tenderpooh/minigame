@@ -78,6 +78,7 @@ const App = () => {
           <Route path="/timer" component={Timer} />
           <Route path="/dealer" component={Dealer} />
           <Route path="/signup" component={Signup} />
+          <Route path="/user" component={Login} />
         </Router>
       </ApolloProvider>
     );
