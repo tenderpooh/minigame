@@ -8,8 +8,7 @@ getUserName = context => {
     const { name } = jwt.verify(token, APP_SECRET);
     return name;
   }
-
-  throw new Error("Not authenticated");
+  return null;
 };
 
 module.exports = {

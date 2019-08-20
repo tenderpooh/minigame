@@ -4,6 +4,7 @@ import User from "./User/User.jsx";
 import Dealer from "./Dealer.jsx";
 import Admin from "./Admin/Admin.jsx";
 import Signup from "./Admin/SignUp.jsx";
+import Display from "./Admin/Display.jsx";
 import "./App.css";
 import ApolloClient from "apollo-client";
 import { ApolloProvider } from "@apollo/react-hooks";
@@ -75,7 +76,7 @@ const App = () => {
         <Router>
           <Route exact path="/" component={Login} />
           <Route exact path="/admin" component={Admin} />
-          <Route exact path="/timer" component={Timer} />
+          <Route exact path="/display" component={Display} />
           <Route exact path="/dealer" component={Dealer} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/user" component={Login} />

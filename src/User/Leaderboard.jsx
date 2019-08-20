@@ -28,10 +28,18 @@ const Leaderboard = () => {
   if (error) return <p>ERROR</p>;
   const userList = data.Users;
   const allUserList = data.AllUsers;
-  const MyInfo = data.MyInfo;
-  let myRank = allUserList.findIndex(element => {
-    return Number(element.barcode) === Number(data.MyInfo.barcode);
-  });
+  let MyInfo = null;
+  let myRank = 0;
+  console.log(data);
+  if (data.myInfo !== undefined) {
+    MyInfo = data.MyInfo;
+    myRank = allUserList.findIndex(element => {
+      return Number(element.barcode) === Number(data.MyInfo.barcode);
+    });
+  } else {
+    MyInfo = null;
+    myRank = 0;
+  }
   return (
     <table className="table">
       <thead>
