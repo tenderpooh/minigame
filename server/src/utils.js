@@ -8,7 +8,7 @@ getUserName = context => {
     const { name } = jwt.verify(token, APP_SECRET);
     return name;
   }
-  return null;
+  return "관리자";
 };
 
 module.exports = {
