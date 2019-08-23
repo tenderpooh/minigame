@@ -35,9 +35,7 @@ const Login = () => {
           class="img-fluid"
           alt="미니게임천국"
           className="text-center align-items-center justify-content-center"
-          style={{
-            width: "100%"
-          }}
+          style={{ width: "100%", height: auto }}
         />
         <Input
           className="mb-1"
