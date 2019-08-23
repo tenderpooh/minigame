@@ -4,6 +4,7 @@ import User from "./User/User.jsx";
 import Dealer from "./Dealer.jsx";
 import Admin from "./Admin/Admin.jsx";
 import Signup from "./Admin/SignUp.jsx";
+import Display from "./Admin/Display.jsx";
 import "./App.css";
 import ApolloClient from "apollo-client";
 import { ApolloProvider } from "@apollo/react-hooks";
@@ -16,7 +17,7 @@ import { WebSocketLink } from "apollo-link-ws";
 import { getMainDefinition } from "apollo-utilities";
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:4040/"
+  uri: "http://54.180.175.127:4040/"
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -32,7 +33,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:4040/`,
+  uri: `ws://54.180.175.127:4040/`,
   options: {
     reconnect: true
   }
@@ -56,7 +57,7 @@ const link = split(
 const client = new ApolloClient({
   link: authLink.concat(link),
   cache: new InMemoryCache(),
-  uri: "http://localhost:4040/"
+  uri: "http://54.180.175.127:4040/"
 });
 
 const App = () => {
@@ -64,8 +65,8 @@ const App = () => {
     return (
       <ApolloProvider client={client}>
         <Router>
-          <Route path="/" component={User} />
-          <Route path="/user/" component={User} />
+          <Route exact path="/" component={User} />
+          <Route exact path="/user/" component={User} />
         </Router>
       </ApolloProvider>
     );
@@ -74,10 +75,11 @@ const App = () => {
       <ApolloProvider client={client}>
         <Router>
           <Route exact path="/" component={Login} />
-          <Route path="/admin" component={Admin} />
-          <Route path="/timer" component={Timer} />
-          <Route path="/dealer" component={Dealer} />
-          <Route path="/signup" component={Signup} />
+          <Route exact path="/admin" component={Admin} />
+          <Route exact path="/display" component={Display} />
+          <Route exact path="/dealer" component={Dealer} />
+          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/user" component={Login} />
         </Router>
       </ApolloProvider>
     );

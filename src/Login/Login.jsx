@@ -32,10 +32,17 @@ const Login = () => {
       <div className="d-flex flex-column align-items-center justify-content-center vh-100">
         <img
           src={logo}
-          class="img-fluid"
           alt="미니게임천국"
+<<<<<<< HEAD
           className="text-center align-items-center justify-content-center"
           style={{ width: "100%", height: auto }}
+=======
+          className="text-center align-items-center justify-content-center img-fluid"
+          style={{
+            width: "80%",
+            height: "auto"
+          }}
+>>>>>>> 0b5ba1c619bde738eb87f969f5249a418a9855cc
         />
         <Input
           className="mb-1"

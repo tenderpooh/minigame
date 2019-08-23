@@ -68,54 +68,72 @@ const Dealer = () => {
     scoreInput.focus();
     fetchData();
   }
-  return (
-    <Container>
-      <div className="d-flex flex-column align-items-center justify-content-center vh-100">
-        <Input
-          id="barcodeInput"
-          onChange={e => setBarcode(e.target.value)}
-          value={barcode}
-          placeholder="유저 코드"
-          style={{ width: "80%" }}
-        />
-        <table className="table" style={{ width: "80%" }}>
-          <thead>
-            <tr>
-              <td>커뮤니티</td>
-              <td>{comm}</td>
-            </tr>
-            <tr>
-              <td>이름</td>
-              <td>{name}</td>
-            </tr>
-            <tr>
-              <td>점수</td>
-              <td>{oldScore}</td>
-            </tr>
-          </thead>
-        </table>
-        <Input
-          id="scoreInput"
-          onChange={e => setScore(e.target.value)}
-          value={score}
-          placeholder="점수"
-          style={{ width: "80%" }}
-        />
-        <Button
-          onClick={e => {
-            e.preventDefault();
-            getScore();
-          }}
-          color="info"
-          size="lg"
-          block
-          style={{ width: "80%" }}
-        >
-          입력
-        </Button>
-      </div>
-    </Container>
-  );
+  const [adminCode, setAdminCode] = useState("");
+  if (adminCode !== "vistavie") {
+    return (
+      <Container>
+        <div className="d-flex flex-column align-items-center justify-content-center vh-100">
+          <Input
+            className="mb-1"
+            onChange={e => setAdminCode(e.target.value)}
+            value={adminCode}
+            placeholder="비밀번호"
+            style={{ width: "80%" }}
+            type="password"
+          />
+        </div>
+      </Container>
+    );
+  } else {
+    return (
+      <Container>
+        <div className="d-flex flex-column align-items-center justify-content-center vh-100">
+          <Input
+            id="barcodeInput"
+            onChange={e => setBarcode(e.target.value)}
+            value={barcode}
+            placeholder="유저 코드"
+            style={{ width: "80%" }}
+          />
+          <table className="table" style={{ width: "80%" }}>
+            <thead>
+              <tr>
+                <td>커뮤니티</td>
+                <td>{comm}</td>
+              </tr>
+              <tr>
+                <td>이름</td>
+                <td>{name}</td>
+              </tr>
+              <tr>
+                <td>점수</td>
+                <td>{oldScore}</td>
+              </tr>
+            </thead>
+          </table>
+          <Input
+            id="scoreInput"
+            onChange={e => setScore(e.target.value)}
+            value={score}
+            placeholder="점수"
+            style={{ width: "80%" }}
+          />
+          <Button
+            onClick={e => {
+              e.preventDefault();
+              getScore();
+            }}
+            color="info"
+            size="lg"
+            block
+            style={{ width: "80%" }}
+          >
+            입력
+          </Button>
+        </div>
+      </Container>
+    );
+  }
 };
 
 export default Dealer;

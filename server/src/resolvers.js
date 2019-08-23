@@ -12,13 +12,13 @@ const resolvers = {
       return context.prisma.user({ name: userName });
     },
     Users: (root, args, context) => {
-      return context.prisma.users({ orderBy: "score_DESC", first: 3 });
+      return context.prisma.users({ orderBy: "score_DESC", first: 5 });
     },
     AllUsers: (root, args, context) => {
       return context.prisma.users({ orderBy: "score_DESC" });
     },
     State: (root, args, context) => {
-      return context.prisma.state({ id: "5d575d7e857aba0007fa5fc2" });
+      return context.prisma.state({ id: "5d58be6ba7b11b00073efc42" });
     }
   },
   Mutation: {
@@ -64,31 +64,31 @@ const resolvers = {
         data: {
           time: args.time
         },
-        where: { id: "5d575d7e857aba0007fa5fc2" }
+        where: { id: "5d58be6ba7b11b00073efc42" }
       });
     },
     addTime: async (root, args, context) => {
       const currentState = await context.prisma.state({
-        id: "5d575d7e857aba0007fa5fc2"
+        id: "5d58be6ba7b11b00073efc42"
       });
       return context.prisma.updateState({
         data: {
           time: currentState.time + args.time
         },
-        where: { id: "5d575d7e857aba0007fa5fc2" }
+        where: { id: "5d58be6ba7b11b00073efc42" }
       });
     },
     startTime: async (root, args, context) => {
       if (timer === null) {
         timer = await setInterval(async () => {
           let state = await context.prisma.state({
-            id: "5d575d7e857aba0007fa5fc2"
+            id: "5d58be6ba7b11b00073efc42"
           });
           console.log(state.time);
           if (state.time > 0) {
             await context.prisma.updateState({
               where: {
-                id: "5d575d7e857aba0007fa5fc2"
+                id: "5d58be6ba7b11b00073efc42"
               },
               data: {
                 time: state.time - 1

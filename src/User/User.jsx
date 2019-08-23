@@ -4,7 +4,7 @@ import Timer from "./Timer";
 import { Container } from "reactstrap";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-const User = ({ match, location }) => {
+const User = () => {
   const GET_USERINFO = gql`
     query MyInfo {
       MyInfo {
@@ -14,7 +14,9 @@ const User = ({ match, location }) => {
       }
     }
   `;
-  const { data, loading, error } = useQuery(GET_USERINFO);
+  const { data, loading, error } = useQuery(GET_USERINFO, {
+    pollInterval: 500
+  });
   if (loading) return <p>LOADING</p>;
   if (error) return <p>ERROR</p>;
   return (
