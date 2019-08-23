@@ -12,7 +12,7 @@ const resolvers = {
       return context.prisma.user({ name: userName });
     },
     Users: (root, args, context) => {
-      return context.prisma.users({ orderBy: "score_DESC", first: 5 });
+      return context.prisma.users({ orderBy: "score_DESC", first: 10 });
     },
     AllUsers: (root, args, context) => {
       return context.prisma.users({ orderBy: "score_DESC" });

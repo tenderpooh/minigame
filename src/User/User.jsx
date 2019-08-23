@@ -24,9 +24,15 @@ const User = () => {
       <Header />
       <div className="d-flex flex-column justify-content-center align-items-center vh-100">
         <Timer />
-        <h4>내 커뮤니티는 {data.MyInfo.comm}</h4>
-        <h4>내 이름은 {data.MyInfo.name}</h4>
-        <h4>현재 나의 점수는 {data.MyInfo.score}점</h4>
+        <h4>안녕하세요.</h4>
+        <h4>
+          <span className="font-weight-bold">{data.MyInfo.comm}</span>의{" "}
+          <span className="font-weight-bold">{data.MyInfo.name}</span>님
+        </h4>
+        <h4>현재 당신의 점수는</h4>
+        <h4>
+          <span className="font-weight-bold">{data.MyInfo.score}</span>점입니다.
+        </h4>
       </div>
     </Container>
   );

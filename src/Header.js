@@ -16,6 +16,7 @@ import {
 import "./App.css";
 import Leaderboard from "./User/Leaderboard";
 import Credit from "./User/Credit";
+import Map from "./User/Map";
 
 const Header = () => {
   const [collapsed, toggleNavbar] = useState(true);
@@ -28,6 +29,9 @@ const Header = () => {
       break;
     case "만든 사람들":
       modalContent = <Credit />;
+      break;
+    case "행사장 지도":
+      modalContent = <Map />;
       break;
     default:
       modalContent = <Credit />;
@@ -54,6 +58,17 @@ const Header = () => {
                   name="리더보드"
                 >
                   리더보드
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  onClick={e => {
+                    toggleModal(true);
+                    setModalTitle(e.target.name);
+                  }}
+                  name="행사장 지도"
+                >
+                  행사장 지도
                 </NavLink>
               </NavItem>
               <NavItem>

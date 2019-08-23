@@ -7,7 +7,7 @@ const Display = () => {
   return (
     <Container>
       <div className="d-flex flex-column align-items-center justify-content-center vh-100">
-        <Timer />
+        <Timer big />
         <Leaderboard />
       </div>
     </Container>

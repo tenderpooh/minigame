@@ -22,22 +22,21 @@ const Leaderboard = () => {
       }
     }
   `;
-  const { data, loading, error } = useQuery(GET_RANK);
+  const { data, loading, error } = useQuery(GET_RANK, {
+    pollInterval: 5000
+  });
 
   if (loading) return <p>LOADING</p>;
   if (error) return <p>ERROR</p>;
   const userList = data.Users;
   const allUserList = data.AllUsers;
-  let MyInfo = null;
+  const MyInfo = data.MyInfo;
   let myRank = 0;
-  console.log(data);
-  if (data.myInfo !== undefined) {
-    MyInfo = data.MyInfo;
+  if (data.MyInfo.name !== "관리자") {
     myRank = allUserList.findIndex(element => {
       return Number(element.barcode) === Number(data.MyInfo.barcode);
     });
   } else {
-    MyInfo = null;
     myRank = 0;
   }
   return (
@@ -78,7 +77,7 @@ const Leaderboard = () => {
           );
         })}
       </tbody>
-      {myRank < 3 ? (
+      {myRank < 10 ? (
         ""
       ) : (
         <tfoot>
