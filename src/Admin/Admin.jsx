@@ -3,6 +3,7 @@ import { Input, Button, ButtonGroup, Container } from "reactstrap";
 import Timer from "../User/Timer.jsx";
 import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
+import Leaderboard from "../User/Leaderboard.jsx";
 
 const Admin = () => {
   const START_TIME = gql`
@@ -41,6 +42,7 @@ const Admin = () => {
     return (
       <Container>
         <div className="d-flex flex-column align-items-center justify-content-center vh-100">
+          <Leaderboard />
           <Timer />
           <Button
             className="mb-1"
